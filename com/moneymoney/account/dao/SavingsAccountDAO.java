@@ -34,7 +34,18 @@ public interface SavingsAccountDAO {
 
 	void updateBalance(int accountNumber, double currentBalance)
 			throws ClassNotFoundException, SQLException;
+	
+	List<SavingsAccount> sortByAccountHolderName() throws ClassNotFoundException, SQLException;
+	List<SavingsAccount> sortByAccountHolderNameInDescendingOrder() throws ClassNotFoundException, SQLException;
+	List<SavingsAccount> sortByAccountBalance() throws ClassNotFoundException, SQLException;
+	List<SavingsAccount> sortByBalanceRange(int minimumBalance,
+			int maximumBalance) throws ClassNotFoundException, SQLException;
+	List<SavingsAccount> sortByBalanceRangeInDescendingOrder(
+			int minimumBalanceValue, int maximumBalanceValue) throws ClassNotFoundException, SQLException;
 
 	void commit() throws SQLException;
+
+	List<SavingsAccount> searchAccountByHolderName(String holderName)
+			throws ClassNotFoundException, SQLException;
 
 }

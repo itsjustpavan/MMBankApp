@@ -121,4 +121,32 @@ public class SavingsAccountServiceImpl implements SavingsAccountService {
 
 		return savingsAccountDAO.updateAccount(savingsaccount);
 	}
+	
+
+	@Override
+	public List<SavingsAccount> sortByAccountHolderName() throws ClassNotFoundException, SQLException {
+		return savingsAccountDAO.sortByAccountHolderName();
+	}
+
+	@Override
+	public List<SavingsAccount> sortByAccountHolderNameInDescendingOrder() throws ClassNotFoundException, SQLException {
+		return savingsAccountDAO.sortByAccountHolderNameInDescendingOrder();
+	}
+
+	@Override
+	public List<SavingsAccount> sortByAccountBalance() throws ClassNotFoundException, SQLException {
+		return savingsAccountDAO.sortByAccountBalance();
+	}
+
+	@Override
+	public List<SavingsAccount> sortByBalanceRange(int minimumBalance,
+			int maximumBalance) throws ClassNotFoundException, SQLException {
+		return savingsAccountDAO.sortByBalanceRange(minimumBalance,maximumBalance);
+	}
+
+	@Override
+	public List<SavingsAccount> sortByBalanceRangeInDescendingOrder(
+			int minimumBalanceValue, int maximumBalanceValue) throws ClassNotFoundException, SQLException {
+		return savingsAccountDAO.sortByBalanceRangeInDescendingOrder(minimumBalanceValue,maximumBalanceValue);
+	}
 }

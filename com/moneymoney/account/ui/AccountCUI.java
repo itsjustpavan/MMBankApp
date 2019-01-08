@@ -85,6 +85,8 @@ public class AccountCUI {
 		case 8:
 			checkBalance();
 			break;
+		case 10:
+			sortAccounts();
 		case 11:
 			try {
 				DBUtil.closeConnection();
@@ -266,19 +268,7 @@ public class AccountCUI {
 		}
 	}
 
-	private static void sortMenu(String sortWay) {
-		do {
-			System.out.println("+++++Ways of Sorting+++++++");
-			System.out.println("1. Account Number");
-			System.out.println("2. Account Holder Name");
-			System.out.println("3. Account Balance");
-			System.out.println("4. Exit from Sorting");
-
-			int choice = scanner.nextInt();
-
-		} while (true);
-
-	}
+	
 
 	private static void showAllAccounts() {
 		List<SavingsAccount> savingsAccounts;
@@ -311,6 +301,85 @@ public class AccountCUI {
 			createSavingsAccount(accountHolderName, accountBalance, salary);
 		}
 	}
+	
+	private static void sortAccounts() {
+		do{
+			System.out.println("*********Sorting Accounts********");
+			System.out.println("1.Sort By Account Holder Name");
+			System.out.println("2.Sort By Account Holder Name in descending order");
+			System.out.println("3.Sort By Account Balance");
+			System.out.println("4.Enter account balance range to sort in ascending order of the balance");
+			System.out.println("5.Enter account balance range to sort in descending order of the balance");
+			
+			int choose = scanner.nextInt();
+			List<SavingsAccount> savingsAccountsList = null;
+			
+			switch(choose){
+			case 1:
+				try {
+					savingsAccountsList = savingsAccountService.sortByAccountHolderName();
+					for(SavingsAccount savings : savingsAccountsList){
+						System.out.println(savings);
+					}
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}
+			
+				break;
+				case 2:
+				try {
+					savingsAccountsList=savingsAccountService.sortByAccountHolderNameInDescendingOrder();
+					for(SavingsAccount savings: savingsAccountsList){
+						System.out.println(savings);
+						}
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+				case 3:
+				try {
+					savingsAccountsList=savingsAccountService.sortByAccountBalance();
+					for(SavingsAccount savings: savingsAccountsList){
+						System.out.println(savings);
+						}
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}						
+					break;
+				case 4:
+					System.out.println("Enter minimun range");
+					int minimumBalance = scanner.nextInt();
+					System.out.println("Enter maximum range");
+					int maximumBalance = scanner.nextInt();
+					try {
+						savingsAccountsList = savingsAccountService.sortByBalanceRange(minimumBalance,maximumBalance);
+						for (SavingsAccount savingsAccount:savingsAccountsList){
+							System.out.println(savingsAccount);
+						}
+					} catch (ClassNotFoundException | SQLException e) {
+						e.printStackTrace();
+					}
+					break;
+				case 5:
+					System.out.println("Enter minimun range");
+					int minimumBalanceValue = scanner.nextInt();
+					System.out.println("Enter maximum range");
+					int maximumBalanceValue = scanner.nextInt();
+					try {
+						savingsAccountsList = savingsAccountService.sortByBalanceRangeInDescendingOrder(minimumBalanceValue,maximumBalanceValue);
+						for (SavingsAccount savingsAccount:savingsAccountsList){
+							System.out.println(savingsAccount);
+						}
+					} catch (ClassNotFoundException | SQLException e) {
+						e.printStackTrace();
+					}
+					break;
+			}
+		}while(true);
+		
+}
 
 	private static void createSavingsAccount(String accountHolderName,
 			double accountBalance, boolean salary) {
